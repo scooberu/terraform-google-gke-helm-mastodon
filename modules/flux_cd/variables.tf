@@ -1,3 +1,8 @@
+variable "flux_namespace" {
+  description = "Flux Namespace"
+  type        = string
+}
+
 variable "github_owner" {
   description = "github owner"
   type        = string
@@ -17,4 +22,8 @@ variable "branch" {
 variable "target_path" {
   type        = string
   description = "Relative path to the Git repository root where the sync manifests are committed."
+}
+
+variable "github_deploy_key_title" {
+  type = string
 }

@@ -1,12 +1,14 @@
 module "flux_cd" {
-  source          = "./modules/flux_cd"
-  github_owner    = var.github_owner
-  repository_name = var.repository_name
-  branch          = var.branch
-  target_path     = var.target_path
-  depends_on      = [module.google_gke_cluster.id,
-                     module.gke_auth.token,
-                     module.github_configuration_repo.github_repo_id]
+  source                  = "./modules/flux_cd"
+  github_owner            = var.github_owner
+  repository_name         = var.repository_name
+  branch                  = var.branch
+  target_path             = var.target_path
+  flux_namespace          = var.flux_namespace
+  github_deploy_key_title = var.github_deploy_key_title
+  depends_on              = [module.google_gke_cluster.id,
+                             module.gke_auth.token,
+                             module.github_configuration_repo.github_repo_id]
 }
 
 module "google_gke_cluster" {

@@ -77,13 +77,16 @@ resource "kubernetes_secret" "main" {
   }
 }
 
+data "github_repository" "main" {
+  full_name = "${var.github_owner}/${var.repository_name}"
+}
+
 resource "github_repository_file" "install" {
   repository          = data.github_repository.main.name
   file                = data.flux_install.main.path
   content             = data.flux_install.main.content
   branch              = var.branch
   overwrite_on_create = true
-  depends_on          = [var.github_repo_id]
 }
 
 resource "github_repository_file" "sync" {
