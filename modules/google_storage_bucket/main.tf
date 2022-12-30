@@ -4,7 +4,7 @@ resource "google_storage_bucket" "mastodon" {
 }
 
 resource "google_service_account" "mastodon" {
-  account_id   = "service-account-mastodon-storage"
+  account_id   = "serviceAccountMastodonStorage"
   display_name = "A service account for Mastodon to access its GCS storage bucket"
 }
 
