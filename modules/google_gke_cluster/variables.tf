@@ -10,10 +10,6 @@ variable "cluster_name" {
   type = string
 }
 
-variable "initial_node_count" {
-  type = number
-}
-
 variable "network" {
   type = string
 }

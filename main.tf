@@ -4,9 +4,9 @@ module "flux_cd" {
   repository_name = var.repository_name
   branch          = var.branch
   target_path     = var.target_path
-  depends_on = [module.google_gke_cluster.id,
-    module.gke_auth.token,
-  module.github_configuration_repo.github_repo_id]
+  depends_on      = [module.google_gke_cluster.id,
+                     module.gke_auth.token,
+                     module.github_configuration_repo.github_repo_id]
 }
 
 module "google_gke_cluster" {
@@ -17,18 +17,19 @@ module "google_gke_cluster" {
   network                  = "projects/${var.project_id}/global/networks/default"
   subnetwork               = "projects/${var.project_id}/regions/${var.cluster_region}/subnetworks/default"
   use_private_endpoint     = var.use_private_endpoint
-  external_secrets_version = var.external_secrets_version
 }
 
 module "google_storage_bucket" {
-  source     = "./modules/google_storage_bucket"
-  project    = var.project_id
-  depends_on = [module.google_gke_cluster.id]
+  source        = "./modules/google_storage_bucket"
+  project_id    = var.project_id
+  bucket_region = var.bucket_region
+  bucket_name   = var.bucket_name
+  depends_on    = [module.google_gke_cluster.id]
 }
 
 module "google_cloud_sql_db" {
   source                     = "./modules/google_cloud_sql_db"
-  project                    = var.project_id
+  project_id                 = var.project_id
   sql_db_region              = var.sql_db_region
   sql_db_name                = var.sql_db_name
   sql_db_cores               = var.sql_db_cores
@@ -36,7 +37,7 @@ module "google_cloud_sql_db" {
   sql_db_autoresize          = var.sql_db_autoresize
   sql_db_initial_disk_size   = var.sql_db_initial_disk_size
   sql_db_max_disk_autoresize = var.sql_db_max_disk_autoresize
-  sql_mastodon_user_password = var.sql_mastodon_postgres_secret
+  sql_mastodon_user_password = var.mastodon_postgres_secret
 }
 
 module "github_configuration_repo" {
@@ -54,7 +55,6 @@ module "github_configuration_repo" {
   smtp_from_email            = var.smtp_from_email
   smtp_reply_to_email        = var.smtp_reply_to_email
   email_server               = var.email_server
-  smtp_login_email           = var.smtp_login_email
   num_sidekiq_threads        = var.num_sidekiq_threads
   num_sidekiq_replicas       = var.num_sidekiq_replicas
   web_port                   = var.web_port

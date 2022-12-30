@@ -32,8 +32,6 @@ provider "github" {
   owner = var.github_owner
 }
 
-provider "google" {}
-
 provider "kubernetes" {
   cluster_ca_certificate = module.gke_auth.cluster_ca_certificate
   host                   = module.gke_auth.host
@@ -46,5 +44,3 @@ provider "kubectl" {
   token                  = module.gke_auth.token
   load_config_file       = false
 }
-
-provider "flux" {}
