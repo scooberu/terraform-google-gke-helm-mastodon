@@ -36,7 +36,7 @@ module "google_cloud_sql_db" {
   sql_db_autoresize          = var.sql_db_autoresize
   sql_db_initial_disk_size   = var.sql_db_initial_disk_size
   sql_db_max_disk_autoresize = var.sql_db_max_disk_autoresize
-  sql_mastodon_user_password = var.sql_mastodon_user_password
+  sql_mastodon_user_password = var.sql_mastodon_postgres_secret
 }
 
 module "github_configuration_repo" {
